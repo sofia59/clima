@@ -3,31 +3,80 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Clima con UV y Humedad</title>
+  <title>WeatherNow - Tu Clima en Tiempo Real</title>
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="card-wrap">
-    <div class="card">
-      <h1>Clima</h1>
-      <input id="city" type="text" placeholder="Ciudad (ej: Buenos Aires)">
-      <button id="botonBuscar" onclick="buscarClima()">Consultar</button>
+  <!-- Pantalla de inicio -->
+  <div class="landing-screen" id="landingScreen">
+    <div class="clouds">
+      <div class="cloud" style="width: 100px; height: 40px; top: 20%; left: 10%; animation-delay: 0s;"></div>
+      <div class="cloud" style="width: 150px; height: 60px; top: 40%; left: 70%; animation-delay: 3s;"></div>
+      <div class="cloud" style="width: 120px; height: 50px; top: 60%; left: 20%; animation-delay: 6s;"></div>
+      <div class="cloud" style="width: 80px; height: 35px; top: 80%; left: 80%; animation-delay: 9s;"></div>
+    </div>
 
-      <div id="resultado" class="info"></div>
+    <div class="landing-content">
+      <div class="weather-icon">
+        <div class="sun">
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+          <div class="ray"></div>
+        </div>
+      </div>
+      
+      <h1 class="landing-title">Tiempo Ya</h1>
+      <p class="landing-subtitle">Descubre el clima en tiempo real</p>
+
+      
+      <button class="start-button" onclick="iniciarApp()">
+        <span>Comenzar</span>
+        <svg width="20" height="20" viewBox="0 0 20 20" fill="none">
+          <path d="M7.5 15L12.5 10L7.5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
+      </button>
+    </div>
+
+  </div>
+
+  <!-- Aplicación principal -->
+  <div class="main-app" id="mainApp">
+    <div class="card-wrap">
+      <div class="card">
+        <h1>Clima</h1>
+        <input id="city" type="text" placeholder="Ciudad (ej: Buenos Aires)">
+        <button id="botonBuscar" onclick="buscarClima()">Consultar</button>
+        <div id="resultado" class="info"></div>
+      </div>
     </div>
   </div>
 
   <script src="funcion.js"></script>
-
   <script>
     const inputCiudad = document.getElementById('city');
     const botonBuscar = document.getElementById('botonBuscar');
-
+    
     inputCiudad.addEventListener('keypress', function(e) {
       if (e.key === 'Enter') {
         buscarClima(); 
       }
     });
+
+        function iniciarApp() {
+      const landing = document.getElementById('landingScreen');
+      const mainApp = document.getElementById('mainApp');
+      
+      landing.classList.add('hidden');
+      
+      setTimeout(() => {
+        mainApp.classList.add('visible');
+      }, 400);
+    }
   </script>
 </body>
 </html>

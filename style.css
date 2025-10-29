@@ -6,6 +6,206 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
+  overflow: hidden;
+}
+
+/* ============= PANTALLA DE INICIO ============= */
+.landing-screen {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+.landing-screen.hidden {
+  opacity: 0;
+  transform: scale(1.1);
+  pointer-events: none;
+}
+
+/* Nubes animadas */
+.clouds {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  opacity: 0.2;
+  pointer-events: none;
+}
+
+.cloud {
+  position: absolute;
+  background: white;
+  border-radius: 100px;
+  opacity: 0.6;
+  animation: float 20s infinite ease-in-out;
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateX(-100px) translateY(0);
+  }
+  50% {
+    transform: translateX(calc(100vw + 100px)) translateY(-20px);
+  }
+}
+
+/* Contenido de landing */
+.landing-content {
+  text-align: center;
+  z-index: 10;
+  animation: fadeInUp 1s ease;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Icono del sol */
+.weather-icon {
+  margin-bottom: 30px;
+  position: relative;
+  display: inline-block;
+}
+
+.sun {
+  width: 120px;
+  height: 120px;
+  background: linear-gradient(135deg, #ffd93d 0%, #ffb03a 100%);
+  border-radius: 50%;
+  position: relative;
+  box-shadow: 0 0 60px rgba(255, 217, 61, 0.6);
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    transform: scale(1);
+    box-shadow: 0 0 60px rgba(255, 217, 61, 0.6);
+  }
+  50% {
+    transform: scale(1.05);
+    box-shadow: 0 0 80px rgba(255, 217, 61, 0.8);
+  }
+}
+
+
+
+.ray:nth-child(1) { transform: translate(-50%, -75px) rotate(0deg); }
+.ray:nth-child(2) { transform: translate(-50%, -75px) rotate(45deg); }
+.ray:nth-child(3) { transform: translate(-50%, -75px) rotate(90deg); }
+.ray:nth-child(4) { transform: translate(-50%, -75px) rotate(135deg); }
+.ray:nth-child(5) { transform: translate(-50%, -75px) rotate(180deg); }
+.ray:nth-child(6) { transform: translate(-50%, -75px) rotate(225deg); }
+.ray:nth-child(7) { transform: translate(-50%, -75px) rotate(270deg); }
+.ray:nth-child(8) { transform: translate(-50%, -75px) rotate(315deg); }
+
+@keyframes rotate {
+  from {
+    transform: translate(-50%, -75px) rotate(0deg);
+  }
+  to {
+    transform: translate(-50%, -75px) rotate(360deg);
+  }
+}
+
+/* Textos de landing */
+.landing-title {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  margin: 0 0 15px 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+  letter-spacing: -2px;
+}
+
+.landing-subtitle {
+  font-size: 1.5rem;
+  color: rgba(255, 255, 255, 0.95);
+  margin: 0 0 10px 0;
+  font-weight: 300;
+}
+
+.landing-description {
+  font-size: 1rem;
+  color: rgba(255, 255, 255, 0.8);
+  margin: 0 0 40px 0;
+  font-weight: 300;
+}
+
+/* Botón de inicio */
+.start-button {
+  background: white;
+  color: #667eea;
+  border: none;
+  padding: 18px 45px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.start-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4);
+  background: #f8f9ff;
+}
+
+.start-button:active {
+  transform: translateY(-1px);
+}
+
+.start-button svg {
+  transition: transform 0.3s ease;
+}
+
+.start-button:hover svg {
+  transform: translateX(5px);
+}
+
+/* Footer de landing */
+.landing-footer {
+  position: absolute;
+  bottom: 30px;
+  text-align: center;
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 0.9rem;
+}
+
+/* ============= APLICACIÓN PRINCIPAL ============= */
+.main-app {
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  pointer-events: none;
+}
+
+.main-app.visible {
+  opacity: 1;
+  transform: scale(1);
+  pointer-events: all;
 }
 
 .card-wrap {
@@ -44,7 +244,7 @@ input {
   border: 1px solid #ccc;
 }
 
-button {
+button#botonBuscar {
   padding: 6px 14px;
   border: none;
   border-radius: 6px;
@@ -53,11 +253,32 @@ button {
   cursor: pointer;
 }
 
-button:hover {
+button#botonBuscar:hover {
   background: #265df2;
 }
 
 .info {
   margin-top: 15px;
   line-height: 1.6;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .landing-title {
+    font-size: 3rem;
+  }
+  
+  .landing-subtitle {
+    font-size: 1.2rem;
+  }
+  
+  .sun {
+    width: 100px;
+    height: 100px;
+  }
+  
+  .start-button {
+    padding: 15px 35px;
+    font-size: 1rem;
+  }
 }
